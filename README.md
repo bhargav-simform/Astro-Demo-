@@ -1,47 +1,56 @@
-# Astro Starter Kit: Minimal
+# Tech People Blog Platform
 
-```sh
-npm create astro@latest -- --template minimal
-```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+A modern blog platform built with Astro and TailwindCSS focusing on tech-related content.
 
 ## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
-
 ```text
 /
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+├── blog-theme/        # Static HTML theme files
+│   ├── 404.html
+│   ├── about.html 
+│   ├── article.html
+│   ├── articles.html
+│   ├── index.html
+│   └── images/
+├── public/           # Static assets
+│   ├── favicon.svg
+│   └── images/
+├── src/             # Source code
+│   ├── components/  # UI components
+│   ├── content/     # Blog content
+│   ├── images/      # Image assets
+│   ├── layouts/     # Page layouts
+│   ├── pages/       # Page routes
+│   └── styles/      # CSS styles
+├── astro.config.mjs # Astro configuration
+├── package.json     # Project dependencies
+└── tailwind.config.mjs # Tailwind configuration
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
-
 | Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| :----------------------- | :----------------------------------------------- |
+| `npm install`            | Installs dependencies                            |
+| `npm run dev`            | Starts local dev server at `localhost:4321`      |
+| `npm run build`          | Build your production site to `./dist/`          |
+| `npm run preview`        | Preview your build locally before deploying      |
 
-## 👀 Want to learn more?
+## 🏗️ Tech Stack
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- [Astro](https://astro.build) - Static Site Generator
+- [TailwindCSS](https://tailwindcss.com) - Styling
+- [Flowbite](https://flowbite.com) - UI Components
+- [Markdown/MDX](https://mdxjs.com) - Content
+- [Vercel](https://vercel.com) - Deployment
+
+## 👀 Features
+
+- Responsive design
+- Tag-based article filtering 
+- Article pagination
+- Image optimization
+- SEO-friendly
+- Fast performance
+- Markdown content
