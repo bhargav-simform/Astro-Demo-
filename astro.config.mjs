@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
 import vercel from "@astrojs/vercel/serverless";
-import tailwindcss from '@tailwindcss/vite';
+import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwindcss()],
+  integrations: [tailwind()],
   output: 'server',
   adapter: vercel()
 });
