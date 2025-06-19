@@ -2,7 +2,7 @@
 export default {
 	content: [
 		'./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
-		'./blog-theme/**/*.html' // Add this line
+		'./blog-theme/**/*.html' 
 	],
 	theme: {
 		extend: {},
