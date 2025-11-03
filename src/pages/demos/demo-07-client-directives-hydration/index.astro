@@ -1,0 +1,92 @@
+---
+import Counter from './_Counter.jsx';
+---
+<html>
+  <head>
+    <title>Client Directives Demo</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #f8fafc;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 540px;
+        margin: 3rem auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px #0001;
+        padding: 2.5rem 2rem 2rem 2rem;
+        text-align: center;
+      }
+      h1 {
+        color: #3b82f6;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      .desc {
+        color: #64748b;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+      .section {
+        margin-bottom: 2.2rem;
+      }
+      .card {
+        background: #f1f5f9;
+        border-radius: 8px;
+        padding: 1.2rem 2rem;
+        font-size: 1.1rem;
+        color: #222;
+        box-shadow: 0 1px 4px #0001;
+        min-width: 220px;
+        margin: 0 auto 1.2rem auto;
+        display: inline-block;
+      }
+      .label {
+        color: #3b82f6;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+      .spacer {
+        height: 300px;
+      }
+      .bottom-note {
+        margin-top: 3rem;
+        color: #64748b;
+        font-size: 1rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Client Directives & Hydration</h1>
+      <div class="desc">
+        This demo shows Astro's partial hydration with <code>client:load</code> and <code>client:visible</code> directives.<br />
+        Only the interactive components load JavaScript!
+      </div>
+      <div class="section">
+        <span class="label">Static Astro component (no JS):</span>
+        <div class="card">
+          <span>Pure Astro, no interactivity</span>
+        </div>
+      </div>
+      <div class="section">
+        <span class="label">Hydrated React Counter (<code>client:load</code>):</span>
+        <div class="card">
+          <Counter client:load />
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="section">
+        <span class="label">Hydrated React Counter (<code>client:visible</code>):</span>
+        <div class="card">
+          <Counter client:visible />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

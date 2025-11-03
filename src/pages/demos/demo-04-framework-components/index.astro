@@ -1,0 +1,63 @@
+---
+import Counter from './_Counter.jsx';
+---
+
+<html>
+	<head>
+		<title>Framework Components Demo</title>
+		<style>
+			body {
+				font-family: 'Segoe UI', Arial, sans-serif;
+				background: #f8fafc;
+				margin: 0;
+				padding: 0;
+			}
+			.container {
+				max-width: 500px;
+				margin: 3rem auto;
+				background: #fff;
+				border-radius: 16px;
+				box-shadow: 0 4px 24px #0001;
+				padding: 2.5rem 2rem 2rem 2rem;
+				text-align: center;
+			}
+			h1 {
+				color: #3b82f6;
+				font-size: 2rem;
+				margin-bottom: 1.5rem;
+			}
+			.desc {
+				color: #64748b;
+				font-size: 1.1rem;
+				margin-bottom: 2rem;
+			}
+			.react-demo {
+				margin-top: 2rem;
+			}
+			.react-card {
+				background: #f1f5f9;
+				border-radius: 8px;
+				padding: 1.5rem 2rem;
+				font-size: 1.1rem;
+				color: #222;
+				box-shadow: 0 1px 4px #0001;
+				min-width: 220px;
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Framework Components Demo</h1>
+			<div class="desc">
+				This demo shows how to use a React component inside Astro using <code>client:load</code>.<br />
+				The counter below is a React component, hydrated on the client.
+			</div>
+			<div class="react-demo">
+				<div class="react-card">
+					<Counter client:load />
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

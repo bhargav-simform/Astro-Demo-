@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import sampleImg from '../../../../public/images/image1.png';
+---
+<html>
+  <head>
+    <title>Image Optimization Demo</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #f8fafc;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 500px;
+        margin: 3rem auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px #0001;
+        padding: 2.5rem 2rem 2rem 2rem;
+        text-align: center;
+      }
+      h1 {
+        color: #3b82f6;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      .desc {
+        color: #64748b;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+      .img-section {
+        margin-bottom: 2rem;
+      }
+      .img-label {
+        color: #3b82f6;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+      .img-demo {
+        background: #f1f5f9;
+        border-radius: 8px;
+        padding: 1.5rem 2rem;
+        box-shadow: 0 1px 4px #0001;
+        display: inline-block;
+      }
+      img, astro-image {
+        border-radius: 8px;
+        box-shadow: 0 1px 4px #0001;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image Optimization Demo</h1>
+      <div class="desc">
+        This demo shows Astro's built-in image optimization using the <code>&lt;Image /&gt;</code> component.
+      </div>
+      <div class="img-section">
+        <span class="img-label">Optimized Image:</span>
+        <div class="img-demo">
+          <Image src={sampleImg} alt="Sample" width={400} />
+        </div>
+      </div>
+      <div class="img-section">
+        <span class="img-label">Unoptimized Image:</span>
+        <div class="img-demo">
+          <img src="/images/image1.png" alt="Sample" width="400" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

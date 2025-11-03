@@ -1,0 +1,70 @@
+---
+let data = { message: 'No API response' };
+try {
+  const { origin } = new URL(Astro.request.url);
+  const res = await fetch(`${origin}/demos/demo-08-api-endpoints-serverless/api/hello.json`);
+  data = await res.json();
+} catch (e) {
+  data = { message: 'API fetch failed' };
+}
+---
+<html>
+  <head>
+    <title>API Endpoints Demo</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #f8fafc;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 500px;
+        margin: 3rem auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px #0001;
+        padding: 2.5rem 2rem 2rem 2rem;
+        text-align: center;
+      }
+      h1 {
+        color: #3b82f6;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      .desc {
+        color: #64748b;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+      .api-card {
+        background: #f1f5f9;
+        border-radius: 8px;
+        padding: 1.5rem 2rem;
+        font-size: 1.1rem;
+        color: #222;
+        box-shadow: 0 1px 4px #0001;
+        min-width: 220px;
+        display: inline-block;
+      }
+      .api-label {
+        color: #3b82f6;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>API Endpoints Demo</h1>
+      <div class="desc">
+        This demo shows how to fetch data from an Astro API endpoint at runtime and display the result below.
+      </div>
+      <span class="api-label">API Response:</span>
+      <div class="api-card">
+        <p>API says: <b>{data.message}</b></p>
+      </div>
+    </div>
+  </body>
+</html>

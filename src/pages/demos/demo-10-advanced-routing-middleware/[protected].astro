@@ -1,0 +1,55 @@
+---
+const { protected: protectedSlug } = Astro.params;
+---
+
+<html>
+  <head>
+    <title>Protected Page</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #f8fafc;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 500px;
+        margin: 3rem auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px #0001;
+        padding: 2.5rem 2rem 2rem 2rem;
+        text-align: center;
+      }
+      h1 {
+        color: #3b82f6;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      .desc {
+        color: #64748b;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+      }
+      .note {
+        background: #f1f5f9;
+        border-radius: 8px;
+        padding: 1.2rem 2rem;
+        font-size: 1.1rem;
+        color: #222;
+        box-shadow: 0 1px 4px #0001;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>{protectedSlug} Page</h1>
+      <div class="desc">
+        This page is protected by Astro middleware.<br />
+        If you see this, <b>middleware allowed access</b>.<br />
+        Try changing the middleware logic to see how access is controlled!
+      </div>
+    </div>
+  </body>
+</html>

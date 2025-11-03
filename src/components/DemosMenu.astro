@@ -1,0 +1,26 @@
+---
+const demos = [
+  { title: 'Pages & Routing', path: '/demos/demo-01-pages-routing/' },
+  { title: 'Layouts & Partials', path: '/demos/demo-02-layouts-partials/' },
+  { title: 'Astro Components', path: '/demos/demo-03-astro-components/' },
+  { title: 'Framework Components', path: '/demos/demo-04-framework-components/' },
+  { title: 'Data Fetching & Collections', path: '/demos/demo-05-data-fetching-collections/' },
+  { title: 'MDX & Advanced Content', path: '/demos/demo-06-mdx-advanced-content/' },
+  { title: 'Client Directives & Hydration', path: '/demos/demo-07-client-directives-hydration/' },
+  { title: 'API Endpoints & Serverless', path: '/demos/demo-08-api-endpoints-serverless/' },
+  { title: 'Image Optimization & Assets', path: '/demos/demo-09-image-optimization-assets/' },
+  { title: 'Advanced Routing & Middleware', path: '/demos/demo-10-advanced-routing-middleware/' },
+];
+---
+<nav style="margin:2rem 0;">
+  <h2>Astro.js Demos</h2>
+  <ul style="list-style:none;padding:0;">
+    {demos.map(demo => (
+      <li style="margin:0.5rem 0;">
+        <a href={demo.path} style="display:block;padding:0.75rem 1rem;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;font-weight:500;box-shadow:0 1px 4px #0001;transition:background 0.2s;" onmouseover="this.style.background='#e0e7ff'" onmouseout="this.style.background='#f5f5f5'">
+          {demo.title}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

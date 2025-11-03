@@ -1,0 +1,13 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+---
+<BaseLayout>
+  <Header slot="header" />
+  <h1 style="color:#3b82f6;font-size:2rem;margin-bottom:1rem;">Astro Layouts & Partials Demo</h1>
+  <div style="color:#64748b;font-size:1.1rem;margin-bottom:2rem;">
+    This page demonstrates Astro layouts with slots and partial components for header and footer.
+  </div>
+  <Footer slot="footer" />
+</BaseLayout>
