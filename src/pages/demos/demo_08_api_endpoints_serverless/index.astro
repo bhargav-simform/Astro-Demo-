@@ -2,7 +2,7 @@
 let data = { message: 'No API response' };
 try {
   const { origin } = new URL(Astro.request.url);
-  const res = await fetch(`${origin}/demos/demo-08-api-endpoints-serverless/api/hello.json`);
+  const res = await fetch(`${origin}/demos/demo_08_api_endpoints_serverless/api/hello.json`);
   data = await res.json();
 } catch (e) {
   data = { message: 'API fetch failed' };
