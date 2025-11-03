@@ -3,7 +3,7 @@ let posts = [];
 try {
   // Use Astro.request.url to build the absolute URL for SSR compatibility
   const { origin } = new URL(Astro.request.url);
-  const res = await fetch(`${origin}/demos/demo-05-data-fetching-collections/api/posts.json`);
+  const res = await fetch(`${origin}/api/posts.json`);
   posts = await res.json();
 } catch (e) {
   posts = [];
