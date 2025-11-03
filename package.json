@@ -16,8 +16,6 @@
     "@astrojs/react": "^3.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-    ,
-    "@astrojs/mdx": "^3.2.1"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
