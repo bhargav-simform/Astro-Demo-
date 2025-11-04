@@ -1,0 +1,1113 @@
+---
+import AnalyticsChart from './components/_AnalyticsChart.vue';
+import InventoryWidget from './components/_InventoryWidget.svelte';
+import OrderProcessor from './components/_TodoManager.jsx';
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Framework Integration Demo | Astro</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', Roboto, sans-serif;
+      background: #f8fafc;
+      margin: 0;
+      padding: 0;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    .demo-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .demo-header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 30px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+    }
+
+    .demo-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #1e293b;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .demo-subtitle {
+      font-size: 1.2rem;
+      color: #64748b;
+      margin-bottom: 32px;
+      line-height: 1.6;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .framework-tags {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .framework-tag {
+      background: #f1f5f9;
+      color: #475569;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .framework-tag:hover {
+      background: #e2e8f0;
+      transform: translateY(-2px);
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .demo-section {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-height: 400px;
+      max-height: 600px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .demo-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+      flex-shrink: 0;
+    }
+
+    .demo-section > :global(*:last-child) {
+      flex: 1;
+      min-height: 0;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1e293b;
+    }
+
+    .framework-badge {
+      background: #f1f5f9;
+      color: #64748b;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border: 1px solid #e2e8f0;
+    }
+
+    .alpine-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .alpine-controls > * {
+      pointer-events: auto;
+    }
+
+    .control-panel {
+      background: #fff;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      min-width: 320px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .control-panel.hidden {
+      display: none;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #1e293b;
+      text-align: center;
+    }
+
+    .control-item {
+      margin-bottom: 16px;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .control-label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    .control-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: white;
+      color: #1e293b;
+      font-size: 0.9rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .control-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    .control-button {
+      width: 100%;
+      padding: 10px;
+      background: #3b82f6;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .control-button:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    .floating-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #3b82f6;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .floating-btn:hover {
+      background: #2563eb;
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(59, 130, 246, 0.5);
+    }
+
+    .notification-toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(16, 185, 129, 0.9);
+      color: white;
+      padding: 16px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.9rem;
+      font-weight: 500;
+      z-index: 1001;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .notification-toast.show {
+      transform: translateX(0);
+    }
+
+    .event-log {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .event-item {
+      margin-bottom: 4px;
+      opacity: 0.8;
+      color: #e2e8f0;
+    }
+
+    .event-item.new {
+      opacity: 1;
+      color: #10b981;
+    }
+
+    /* Order Processor Styles (Solid.js) */
+    :global(.order-processor) {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e2e8f0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    :global(.order-header) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    :global(.order-title) {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0;
+    }
+
+    :global(.header-actions) {
+      display: flex;
+      gap: 12px;
+    }
+
+    :global(.stats-toggle),
+    :global(.add-order-btn) {
+      padding: 8px 16px;
+      border: 1px solid #e2e8f0;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    :global(.add-order-btn) {
+      background: #10b981;
+      color: white;
+      border-color: #10b981;
+    }
+
+    :global(.stats-toggle:hover),
+    :global(.add-order-btn:hover) {
+      transform: translateY(-1px);
+    }
+
+    :global(.add-order-btn:hover) {
+      background: #059669;
+    }
+
+    :global(.order-stats) {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    :global(.order-stats .stat-card) {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    :global(.order-stats .stat-card.pending) {
+      background: #fef3c7;
+      border-color: #fbbf24;
+    }
+
+    :global(.order-stats .stat-card.revenue) {
+      background: #ecfdf5;
+      border-color: #10b981;
+    }
+
+    :global(.filter-tabs) {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    :global(.filter-tab) {
+      padding: 8px 16px;
+      border: 1px solid #e2e8f0;
+      background: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+    }
+
+    :global(.filter-tab.active) {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+    }
+
+    :global(.orders-list) {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    :global(.order-item) {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    :global(.order-item:hover) {
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    :global(.order-main) {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    :global(.order-id) {
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 0.875rem;
+    }
+
+    :global(.order-customer) {
+      color: #64748b;
+      font-size: 0.875rem;
+      margin-top: 4px;
+    }
+
+    :global(.order-meta) {
+      display: flex;
+      gap: 12px;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
+
+    :global(.order-total) {
+      font-weight: 700;
+      color: #059669;
+      font-size: 1rem;
+    }
+
+    :global(.order-priority) {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    :global(.order-status-section) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    :global(.current-status) {
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    :global(.status-actions) {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    :global(.status-btn) {
+      padding: 4px 8px;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    :global(.status-btn:hover) {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+
+    /* Preact User Profile Widget Styles */
+    :global(.customer-management) {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      color: #333;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+      max-width: 450px;
+      height: 100%;
+    }
+
+    :global(.store-header) {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    :global(.owner-info) {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+
+    :global(.owner-avatar) {
+      font-size: 40px;
+      display: block;
+    }
+
+    :global(.owner-details) {
+      flex: 1;
+    }
+
+    :global(.owner-name) {
+      margin: 0 0 4px 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    :global(.owner-role) {
+      margin: 0 0 4px 0;
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    :global(.store-status) {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    :global(.orders-section) {
+      margin-bottom: 24px;
+    }
+
+    :global(.orders-header) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    :global(.orders-toggle) {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #374151;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      font-weight: 500;
+    }
+
+    :global(.orders-toggle:hover) {
+      background: #e2e8f0;
+      transform: translateY(-1px);
+    }
+
+    :global(.orders-icon) {
+      font-size: 16px;
+    }
+
+    :global(.pending-badge) {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #f59e0b;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    :global(.order-stats) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    :global(.total-value) {
+      font-size: 16px;
+      font-weight: 700;
+      color: #059669;
+    }
+
+    :global(.orders-dropdown) {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #e2e8f0;
+      margin-top: 12px;
+    }
+
+    :global(.order-item) {
+      background: white;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 8px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s ease;
+    }
+
+    :global(.order-item:hover) {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    :global(.order-header) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    :global(.order-id) {
+      font-weight: 600;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    :global(.order-status) {
+      font-size: 12px;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    :global(.order-content) {
+      margin-bottom: 8px;
+    }
+
+    :global(.customer-name) {
+      margin: 0 0 4px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    :global(.order-details) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    :global(.order-items) {
+      font-size: 14px;
+      color: #64748b;
+    }
+
+    :global(.order-total) {
+      font-size: 14px;
+      font-weight: 600;
+      color: #059669;
+    }
+
+    :global(.order-time) {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    :global(.order-actions) {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    :global(.action-btn) {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    :global(.action-btn.process) {
+      background: #3b82f6;
+      color: white;
+      flex: 1;
+    }
+
+    :global(.action-btn.process:hover) {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    :global(.quick-actions) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    :global(.quick-actions .action-btn) {
+      justify-content: center;
+    }
+
+    :global(.action-btn.primary) {
+      background: #f8fafc;
+      color: #374151;
+      border: 1px solid #e2e8f0;
+      grid-column: 1 / -1;
+    }
+
+    :global(.action-btn.secondary) {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+    }
+
+    :global(.action-btn.primary:hover),
+    :global(.action-btn.secondary:hover) {
+      background: #e2e8f0;
+      color: #374151;
+      transform: translateY(-1px);
+    }
+
+    :global(.no-orders) {
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .demo-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .demo-title {
+        font-size: 2rem;
+      }
+
+      .framework-tags {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .framework-tag {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+      }
+
+      .alpine-controls {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+      }
+
+      .control-panel {
+        min-width: auto;
+        width: calc(100% - 20px);
+        max-height: 60vh;
+      }
+
+      .demo-section {
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .demo-container {
+        padding: 10px;
+      }
+
+      .demo-grid {
+        gap: 12px;
+      }
+
+      .demo-title {
+        font-size: 1.5rem;
+      }
+
+      .demo-subtitle {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="demo-container">
+    <!-- Header Section -->
+    <header class="demo-header">
+      <h1 class="demo-title">🛒 Smart E-Commerce Dashboard</h1>
+      <p class="demo-subtitle">
+        Experience a complete e-commerce management system where each framework handles what it does best.
+        From sales analytics to inventory management, see how multiple frameworks create a unified experience.
+      </p>
+      
+      <div class="framework-tags">
+        <span class="framework-tag">🟢 Vue.js - Sales Analytics</span>
+        <span class="framework-tag">🧡 Svelte - Inventory Control</span>
+        <span class="framework-tag">🔷 Solid.js - Order Processing</span>
+        <span class="framework-tag">🏔️ Alpine.js - Store Controls</span>
+        <span class="framework-tag">🚀 Astro</span>
+      </div>
+    </header>
+
+    <!-- Main Demo Grid -->
+    <div class="demo-grid">
+        <AnalyticsChart client:load />
+
+
+        <InventoryWidget client:load />
+
+
+        <OrderProcessor client:load />
+    </div>
+  </div>
+
+  <!-- Alpine.js Control Panel -->
+  <div class="alpine-controls" x-data="controlPanel()">
+    <!-- Floating Action Button -->
+    <button 
+      class="floating-btn" 
+      @click="togglePanel()"
+      x-show="!showPanel"
+    >
+      ⚙️
+    </button>
+
+    <!-- Control Panel -->
+    <div class="control-panel" x-show="showPanel" x-transition>
+      <div class="panel-title">🏔️ Store Control Center</div>
+      
+      <div class="control-item">
+        <label class="control-label">Store Settings</label>
+        <button 
+          class="control-button" 
+          @click="changeTheme()"
+          x-text="'Switch to ' + (isDark ? 'Light' : 'Dark') + ' Mode'"
+        ></button>
+      </div>
+
+      <div class="control-item">
+        <label class="control-label">Store Announcement</label>
+        <input 
+          type="text" 
+          class="control-input" 
+          x-model="broadcastMessage"
+          placeholder="Store-wide announcement..."
+        >
+        <button class="control-button" @click="sendBroadcast()">
+          Broadcast to All Systems
+        </button>
+      </div>
+
+      <div class="control-item">
+        <label class="control-label">System Activity Monitor</label>
+        <div class="event-log">
+          <template x-for="event in eventLog" :key="event.id">
+            <div class="event-item" :class="{ 'new': event.isNew }" x-text="event.message"></div>
+          </template>
+          <div x-show="eventLog.length === 0" class="event-item">
+            Monitoring store systems...
+          </div>
+        </div>
+        <button class="control-button" @click="clearEventLog()">
+          Clear Activity Log
+        </button>
+      </div>
+
+      <div class="control-item">
+        <button class="control-button" @click="simulateActivity()">
+          🎯 Simulate Store Activity
+        </button>
+      </div>
+
+      <div class="control-item">
+        <button class="control-button" @click="togglePanel()">
+          Close Control Panel
+        </button>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div 
+      class="notification-toast"
+      x-show="showToast"
+      x-transition
+      x-text="toastMessage"
+    ></div>
+  </div>
+
+  <script>
+    // Declare the controlPanel function before Alpine.js loads
+    window.controlPanel = function() {
+      return {
+        showPanel: false,
+        isDark: false,
+        broadcastMessage: '',
+        eventLog: [],
+        showToast: false,
+        toastMessage: '',
+        eventCounter: 0,
+
+        init() {
+          console.log('🏔️ Alpine.js Control Panel initializing...');
+          
+          // Listen for events from all frameworks
+          this.setupEventListeners();
+          
+          // Welcome message
+          setTimeout(() => {
+            this.showNotification('Multi-Framework Dashboard Loaded! 🎉');
+            this.addEventLog('🏔️ Alpine.js Control Panel initialized');
+          }, 500);
+        },
+
+        togglePanel() {
+          this.showPanel = !this.showPanel;
+        },
+
+        changeTheme() {
+          try {
+            this.isDark = !this.isDark;
+            document.body.style.filter = this.isDark ? 'invert(1) hue-rotate(180deg)' : 'none';
+            this.addEventLog(`🎨 Theme switched to ${this.isDark ? 'Dark' : 'Light'} mode`);
+            this.showNotification(`Switched to ${this.isDark ? 'Dark' : 'Light'} theme`);
+          } catch (error) {
+            console.error('Error changing theme:', error);
+            this.showNotification('Error changing theme');
+          }
+        },
+
+        sendBroadcast() {
+          if (this.broadcastMessage.trim()) {
+            try {
+              window.dispatchEvent(new CustomEvent('alpine-broadcast', {
+                detail: { 
+                  message: this.broadcastMessage,
+                  timestamp: new Date().toLocaleTimeString(),
+                  framework: 'Alpine.js'
+                }
+              }));
+              
+              this.addEventLog(`📡 Broadcast: "${this.broadcastMessage}"`);
+              this.showNotification('Message broadcasted to all frameworks!');
+              this.broadcastMessage = '';
+            } catch (error) {
+              console.error('Error sending broadcast:', error);
+              this.showNotification('Error sending broadcast');
+            }
+          } else {
+            this.showNotification('Please enter a message to broadcast');
+          }
+        },
+
+        simulateActivity() {
+          const activities = [
+            () => {
+              window.dispatchEvent(new CustomEvent('sales-updated', { 
+                detail: { totalRevenue: Math.floor(Math.random() * 10000) + 5000 }
+              }));
+            },
+            () => {
+              window.dispatchEvent(new CustomEvent('inventory-updated', { 
+                detail: { totalProducts: Math.floor(Math.random() * 50) + 20 }
+              }));
+            },
+            () => {
+              const tasks = ['Update inventory', 'Review sales data', 'Process orders', 'Check analytics'];
+              window.dispatchEvent(new CustomEvent('todo-added', { 
+                detail: { text: tasks[Math.floor(Math.random() * tasks.length)], priority: 'medium' }
+              }));
+            },
+            () => {
+              window.dispatchEvent(new CustomEvent('system-notification', {
+                detail: { message: 'Simulated system activity from Alpine.js', type: 'info' }
+              }));
+            }
+          ];
+
+          // Trigger random activities
+          const activity = activities[Math.floor(Math.random() * activities.length)];
+          activity();
+          
+          this.addEventLog('🎭 Simulated cross-framework activity');
+          this.showNotification('Simulated activity triggered!');
+        },
+
+        setupEventListeners() {
+          // Listen for events from Vue.js
+          window.addEventListener('sales-updated', (e) => {
+            const detail = e.detail || {};
+            this.addEventLog(`📊 Vue.js: Sales updated ($${detail.totalRevenue || 0})`);
+          });
+
+          // Listen for events from Svelte
+          window.addEventListener('inventory-updated', (e) => {
+            const detail = e.detail || {};
+            this.addEventLog(`🧡 Svelte: Inventory updated (${detail.totalProducts || 0} products)`);
+          });
+
+          // Listen for events from Solid.js (Todo Manager)
+          window.addEventListener('todo-added', (e) => {
+            const detail = e.detail || {};
+            this.addEventLog(`🔷 Solid.js: Todo added - ${detail.text || 'New task'}`);
+          });
+
+          window.addEventListener('todo-updated', (e) => {
+            const detail = e.detail || {};
+            this.addEventLog(`🔷 Solid.js: Todo updated - ${detail.action || 'modified'}`);
+          });
+
+          // Listen for our own broadcasts
+          window.addEventListener('alpine-broadcast', (e) => {
+            this.addEventLog(`🏔️ Alpine.js: Broadcast sent`);
+          });
+
+          // Listen for general system events
+          window.addEventListener('system-notification', (e) => {
+            const detail = e.detail || {};
+            this.addEventLog(`🔔 System: ${detail.message || 'Notification'}`);
+          });
+        },
+
+        addEventLog(message) {
+          this.eventCounter++;
+          this.eventLog.unshift({
+            id: this.eventCounter,
+            message: `[${new Date().toLocaleTimeString()}] ${message}`,
+            isNew: true
+          });
+
+          // Keep only last 20 events
+          if (this.eventLog.length > 20) {
+            this.eventLog = this.eventLog.slice(0, 20);
+          }
+
+          // Remove "new" class after 3 seconds
+          setTimeout(() => {
+            const event = this.eventLog.find(e => e.id === this.eventCounter);
+            if (event) event.isNew = false;
+          }, 3000);
+        },
+
+        showNotification(message) {
+          this.toastMessage = message;
+          this.showToast = true;
+          
+          setTimeout(() => {
+            this.showToast = false;
+          }, 3000);
+        },
+
+        clearEventLog() {
+          this.eventLog = [];
+          this.showNotification('Event log cleared');
+        }
+      }
+    }
+
+    // Initialize Alpine when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('🏔️ Alpine.js control panel ready for multi-framework demo');
+      
+      // Dispatch ready event for other frameworks
+      window.dispatchEvent(new CustomEvent('alpine-ready', {
+        detail: { message: 'Alpine.js Control Panel is ready!' }
+      }));
+    });
+  </script>
+
+  <script is:inline src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

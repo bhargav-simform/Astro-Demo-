@@ -9,13 +9,23 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/alpinejs": "^0.4.9",
     "@astrojs/check": "^0.9.4",
-    "@astrojs/vercel": "^8.1.5",
-    "astro": "^5.9.3",
-    "typescript": "^5.8.3",
+    "@astrojs/preact": "^4.1.2",
     "@astrojs/react": "^3.3.3",
+    "@astrojs/solid-js": "^5.1.2",
+    "@astrojs/svelte": "^7.2.1",
+    "@astrojs/vercel": "^8.1.5",
+    "@astrojs/vue": "^5.1.2",
+    "alpinejs": "^3.15.1",
+    "astro": "^5.9.3",
+    "preact": "^10.27.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "solid-js": "^1.9.10",
+    "svelte": "^5.43.3",
+    "typescript": "^5.8.3",
+    "vue": "^3.5.22"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
