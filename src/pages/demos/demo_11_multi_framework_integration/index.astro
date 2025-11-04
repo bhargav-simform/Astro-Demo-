@@ -1,7 +1,7 @@
 ---
 import AnalyticsChart from './components/_AnalyticsChart.vue';
 import InventoryWidget from './components/_InventoryWidget.svelte';
-import OrderProcessor from './components/_TodoManager.jsx';
+import OrderProcessor from './components/_OrderProcessor.jsx';
 ---
 
 <html lang="en">
@@ -929,13 +929,26 @@ import OrderProcessor from './components/_TodoManager.jsx';
   </div>
 
   <script>
+    // Type declarations for TypeScript
+    interface EventLogItem {
+      id: number;
+      message: string;
+      isNew: boolean;
+    }
+
+    declare global {
+      interface Window {
+        controlPanel: () => any;
+      }
+    }
+
     // Declare the controlPanel function before Alpine.js loads
     window.controlPanel = function() {
       return {
         showPanel: false,
         isDark: false,
         broadcastMessage: '',
-        eventLog: [],
+        eventLog: [] as EventLogItem[],
         showToast: false,
         toastMessage: '',
         eventCounter: 0,
@@ -1028,24 +1041,24 @@ import OrderProcessor from './components/_TodoManager.jsx';
         setupEventListeners() {
           // Listen for events from Vue.js
           window.addEventListener('sales-updated', (e) => {
-            const detail = e.detail || {};
+            const detail = (e as CustomEvent).detail || {};
             this.addEventLog(`📊 Vue.js: Sales updated ($${detail.totalRevenue || 0})`);
           });
 
           // Listen for events from Svelte
           window.addEventListener('inventory-updated', (e) => {
-            const detail = e.detail || {};
+            const detail = (e as CustomEvent).detail || {};
             this.addEventLog(`🧡 Svelte: Inventory updated (${detail.totalProducts || 0} products)`);
           });
 
           // Listen for events from Solid.js (Todo Manager)
           window.addEventListener('todo-added', (e) => {
-            const detail = e.detail || {};
+            const detail = (e as CustomEvent).detail || {};
             this.addEventLog(`🔷 Solid.js: Todo added - ${detail.text || 'New task'}`);
           });
 
           window.addEventListener('todo-updated', (e) => {
-            const detail = e.detail || {};
+            const detail = (e as CustomEvent).detail || {};
             this.addEventLog(`🔷 Solid.js: Todo updated - ${detail.action || 'modified'}`);
           });
 
@@ -1056,12 +1069,12 @@ import OrderProcessor from './components/_TodoManager.jsx';
 
           // Listen for general system events
           window.addEventListener('system-notification', (e) => {
-            const detail = e.detail || {};
+            const detail = (e as CustomEvent).detail || {};
             this.addEventLog(`🔔 System: ${detail.message || 'Notification'}`);
           });
         },
 
-        addEventLog(message) {
+        addEventLog(message: string) {
           this.eventCounter++;
           this.eventLog.unshift({
             id: this.eventCounter,
@@ -1076,12 +1089,12 @@ import OrderProcessor from './components/_TodoManager.jsx';
 
           // Remove "new" class after 3 seconds
           setTimeout(() => {
-            const event = this.eventLog.find(e => e.id === this.eventCounter);
+            const event = this.eventLog.find((e: EventLogItem) => e.id === this.eventCounter);
             if (event) event.isNew = false;
           }, 3000);
         },
 
-        showNotification(message) {
+        showNotification(message: string) {
           this.toastMessage = message;
           this.showToast = true;
           

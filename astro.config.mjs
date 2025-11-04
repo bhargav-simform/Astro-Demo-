@@ -17,7 +17,7 @@ export default defineConfig({
     vue(),
     svelte(),
     solidJs({
-      include: ['**/components/_TodoManager.jsx']
+      include: ['**/components/_OrderProcessor.jsx']
     }),
     alpinejs()
   ],
