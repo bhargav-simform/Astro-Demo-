@@ -1,4 +1,12 @@
 ---
+export async function getStaticPaths() {
+  return [
+    { params: { all: 'example' } },
+    { params: { all: 'demo/path' } },
+    { params: { all: 'test/multiple/segments' } },
+  ];
+}
+
 const { all } = Astro.params;
 const allSegments = Array.isArray(all) ? all : all ? [all] : [];
 ---

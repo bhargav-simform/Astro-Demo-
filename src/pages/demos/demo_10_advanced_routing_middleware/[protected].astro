@@ -1,4 +1,12 @@
 ---
+export async function getStaticPaths() {
+  return [
+    { params: { protected: 'admin' } },
+    { params: { protected: 'dashboard' } },
+    { params: { protected: 'settings' } },
+  ];
+}
+
 const { protected: protectedSlug } = Astro.params;
 ---
 
