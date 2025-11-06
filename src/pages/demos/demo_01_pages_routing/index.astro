@@ -3,66 +3,18 @@
 <html>
   <head>
     <title>Astro Routing Demo</title>
-    <style>
-      body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: #f8fafc;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 500px;
-        margin: 3rem auto;
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 4px 24px #0001;
-        padding: 2.5rem 2rem 2rem 2rem;
-        text-align: center;
-      }
-      h1 {
-        color: #3b82f6;
-        font-size: 2.2rem;
-        margin-bottom: 1.5rem;
-      }
-      .demo-links {
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
-        margin-top: 2rem;
-      }
-      .demo-link {
-        display: block;
-        padding: 1rem;
-        background: #f1f5f9;
-        border-radius: 8px;
-        text-decoration: none;
-        color: #222;
-        font-weight: 500;
-        font-size: 1.1rem;
-        box-shadow: 0 1px 4px #0001;
-        transition: background 0.2s, color 0.2s;
-      }
-      .demo-link:hover {
-        background: #3b82f6;
-        color: #fff;
-      }
-      .desc {
-        color: #64748b;
-        font-size: 1rem;
-        margin-bottom: 2rem;
-      }
-    </style>
+    <link rel="stylesheet" href="/src/styles/global.css">
   </head>
-  <body>
-    <div class="container">
-      <h1>Astro Routing Demo</h1>
-      <div class="desc">
+  <body class="font-sans bg-slate-50 m-0 p-0">
+    <div class="max-w-lg mx-auto mt-12 bg-white rounded-2xl shadow-lg shadow-black/5 px-8 py-10 text-center">
+      <h1 class="text-blue-500 text-4xl mb-6 font-normal">Astro Routing Demo</h1>
+      <div class="text-slate-500 text-base mb-8">
         Explore Astro's file-based routing with static, dynamic, and catch-all routes.
       </div>
-      <div class="demo-links">
-        <a class="demo-link" href="/demos/demo_01_pages_routing/about">About (Static Route)</a>
-        <a class="demo-link" href="/demos/demo_01_pages_routing/blog/astro">Blog: Astro (Dynamic Route)</a>
-        <a class="demo-link" href="/demos/demo_01_pages_routing/catchall/anything/here">Catch-all Route</a>
+      <div class="flex flex-col gap-5 mt-8">
+        <a class="block px-4 py-4 bg-slate-100 rounded-lg no-underline text-gray-800 font-medium text-lg shadow-sm shadow-black/5 transition-all duration-200 hover:bg-blue-500 hover:text-white" href="/demos/demo_01_pages_routing/about">About (Static Route)</a>
+        <a class="block px-4 py-4 bg-slate-100 rounded-lg no-underline text-gray-800 font-medium text-lg shadow-sm shadow-black/5 transition-all duration-200 hover:bg-blue-500 hover:text-white" href="/demos/demo_01_pages_routing/blog/astro">Blog: Astro (Dynamic Route)</a>
+        <a class="block px-4 py-4 bg-slate-100 rounded-lg no-underline text-gray-800 font-medium text-lg shadow-sm shadow-black/5 transition-all duration-200 hover:bg-blue-500 hover:text-white" href="/demos/demo_01_pages_routing/catchall/anything/here">Catch-all Route</a>
       </div>
     </div>
   </body>

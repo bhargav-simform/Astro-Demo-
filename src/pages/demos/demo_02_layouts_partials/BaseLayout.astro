@@ -3,31 +3,12 @@
 <html>
   <head>
     <title>Astro Layout Demo</title>
-    <style>
-      body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: #f8fafc;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 520px;
-        margin: 3rem auto;
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 4px 24px #0001;
-        padding: 2.5rem 2rem 2rem 2rem;
-        text-align: center;
-      }
-      main {
-        margin: 2rem 0 1.5rem 0;
-      }
-    </style>
+    <link rel="stylesheet" href="/src/styles/global.css">
   </head>
-  <body>
-    <div class="container">
+  <body class="font-sans bg-slate-50 m-0 p-0">
+    <div class="max-w-xl mx-auto mt-12 bg-white rounded-2xl shadow-lg shadow-black/5 px-8 py-10 text-center">
       <slot name="header" />
-      <main><slot /></main>
+      <main class="my-8"><slot /></main>
       <slot name="footer" />
     </div>
   </body>

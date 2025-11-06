@@ -9,16 +9,11 @@ import OrderProcessor from './components/_OrderProcessor.jsx';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Multi-Framework Integration Demo | Astro</title>
+  <link rel="stylesheet" href="/src/styles/global.css">
   <style>
     body {
       font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', Roboto, sans-serif;
-      background: #f8fafc;
-      margin: 0;
-      padding: 0;
-      color: #1e293b;
-      line-height: 1.6;
     }
-
     .demo-container {
       max-width: 1400px;
       margin: 0 auto;
@@ -823,33 +818,29 @@ import OrderProcessor from './components/_OrderProcessor.jsx';
   </style>
 </head>
 
-<body>
-  <div class="demo-container">
+<body class="font-sans bg-slate-50 m-0 p-0 text-slate-800 leading-relaxed">
+  <div class="max-w-7xl mx-auto p-5">
     <!-- Header Section -->
-    <header class="demo-header">
-      <h1 class="demo-title">🛒 Smart E-Commerce Dashboard</h1>
-      <p class="demo-subtitle">
+    <header class="text-center mb-10 p-10 bg-white rounded-2xl shadow-lg shadow-black/10 border border-slate-200">
+      <h1 class="text-4xl font-extrabold mb-4 text-slate-800 bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">🛒 Smart E-Commerce Dashboard</h1>
+      <p class="text-lg text-slate-500 mb-8 leading-relaxed max-w-3xl mx-auto">
         Experience a complete e-commerce management system where each framework handles what it does best.
         From sales analytics to inventory management, see how multiple frameworks create a unified experience.
       </p>
       
-      <div class="framework-tags">
-        <span class="framework-tag">🟢 Vue.js - Sales Analytics</span>
-        <span class="framework-tag">🧡 Svelte - Inventory Control</span>
-        <span class="framework-tag">🔷 Solid.js - Order Processing</span>
-        <span class="framework-tag">🏔️ Alpine.js - Store Controls</span>
-        <span class="framework-tag">🚀 Astro</span>
+      <div class="flex justify-center gap-3 flex-wrap">
+        <span class="bg-slate-100 text-slate-600 px-4 py-2 rounded-full text-sm font-medium border border-slate-200 hover:bg-slate-200 hover:-translate-y-0.5 transition-all">🟢 Vue.js - Sales Analytics</span>
+        <span class="bg-slate-100 text-slate-600 px-4 py-2 rounded-full text-sm font-medium border border-slate-200 hover:bg-slate-200 hover:-translate-y-0.5 transition-all">🧡 Svelte - Inventory Control</span>
+        <span class="bg-slate-100 text-slate-600 px-4 py-2 rounded-full text-sm font-medium border border-slate-200 hover:bg-slate-200 hover:-translate-y-0.5 transition-all">🔷 Solid.js - Order Processing</span>
+        <span class="bg-slate-100 text-slate-600 px-4 py-2 rounded-full text-sm font-medium border border-slate-200 hover:bg-slate-200 hover:-translate-y-0.5 transition-all">🏔️ Alpine.js - Store Controls</span>
+        <span class="bg-slate-100 text-slate-600 px-4 py-2 rounded-full text-sm font-medium border border-slate-200 hover:bg-slate-200 hover:-translate-y-0.5 transition-all">🚀 Astro</span>
       </div>
     </header>
 
     <!-- Main Demo Grid -->
-    <div class="demo-grid">
+    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-10">
         <AnalyticsChart client:load />
-
-
         <InventoryWidget client:load />
-
-
         <OrderProcessor client:load />
     </div>
   </div>

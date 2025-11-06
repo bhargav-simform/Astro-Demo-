@@ -3,50 +3,15 @@
 <html>
   <head>
     <title>About Page (Static Route)</title>
-    <style>
-      body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: #f8fafc;
-        margin: 0;
-        padding: 0;
-      }
-      .container {
-        max-width: 500px;
-        margin: 3rem auto;
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 4px 24px #0001;
-        padding: 2.5rem 2rem 2rem 2rem;
-        text-align: center;
-      }
-      h2 {
-        color: #3b82f6;
-        font-size: 2rem;
-        margin-bottom: 1rem;
-      }
-      .desc {
-        color: #64748b;
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-      }
-      a {
-        color: #3b82f6;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.2s;
-      }
-      a:hover {
-        color: #1e293b;
-      }
-    </style>
+    <link rel="stylesheet" href="/src/styles/global.css">
   </head>
-  <body>
-    <div class="container">
-      <h2>About Page (Static Route)</h2>
-      <div class="desc">
-        This is a static route in Astro. The file <code>about.astro</code> directly maps to this URL.
+  <body class="font-sans bg-slate-50 m-0 p-0">
+    <div class="max-w-lg mx-auto mt-12 bg-white rounded-2xl shadow-lg shadow-black/5 px-8 py-10 text-center">
+      <h2 class="text-blue-500 text-3xl mb-4 font-normal">About Page (Static Route)</h2>
+      <div class="text-slate-500 text-lg mb-8">
+        This is a static route in Astro. The file <code class="bg-slate-100 px-1 py-0.5 rounded text-sm">about.astro</code> directly maps to this URL.
       </div>
-      <a href="/demos/demo_01_pages_routing/">← Back to Demo Home</a>
+      <a class="text-blue-500 no-underline font-medium transition-colors duration-200 hover:text-slate-800" href="/demos/demo_01_pages_routing/">← Back to Demo Home</a>
     </div>
   </body>
 </html>

@@ -7,11 +7,14 @@ export default function Counter() {
   }, []);
   return (
     <div>
-      <button onClick={() => setCount(count + 1)}>
+      <button 
+        onClick={() => setCount(count + 1)}
+        className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200"
+      >
         Count: {count}
       </button>
       {hydrated && (
-        <div style={{ color: '#16a34a', marginTop: '0.5rem', fontWeight: 500 }}>
+        <div className="text-green-600 mt-2 font-medium">
           JS loaded! (Hydrated)
         </div>
       )}
